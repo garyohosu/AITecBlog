@@ -21,6 +21,18 @@ layout: default
   }
   .post-meta i { margin-right: 0.3rem; }
 
+  .cover-wrap {
+    margin-top: 1rem;
+  }
+  .cover-image {
+    width: 100%;
+    border-radius: 0.8rem;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    object-fit: cover;
+    max-height: 420px;
+  }
+
   /* Article body */
   .post-body {
     font-size: 1.05rem;
@@ -118,6 +130,12 @@ layout: default
         </p>
         {% if page.description %}
         <p class="text-muted mt-2" style="font-size: 1.05rem;">{{ page.description }}</p>
+        {% endif %}
+
+        {% if page.cover_image %}
+        <div class="cover-wrap">
+          <img class="cover-image" src="{{ page.cover_image | relative_url }}" alt="{{ page.title }} cover image" loading="eager" decoding="async">
+        </div>
         {% endif %}
       </div>
     </div>

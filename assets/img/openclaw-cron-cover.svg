@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="OpenClaw Cron cover">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="55%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#0b1220"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g opacity="0.22" stroke="#7dd3fc">
+    <path d="M0 520 L250 430 L480 500 L780 360 L1200 460" fill="none" stroke-width="2"/>
+    <path d="M0 550 L220 510 L520 560 L860 450 L1200 520" fill="none" stroke-width="2"/>
+  </g>
+
+  <rect x="70" y="70" width="1060" height="490" rx="24" fill="rgba(15,23,42,0.45)" stroke="rgba(148,163,184,0.3)"/>
+
+  <text x="110" y="210" fill="#93c5fd" font-size="36" font-family="Inter,Segoe UI,Arial,sans-serif">OpenClaw Tech Blog</text>
+  <text x="110" y="285" fill="#e2e8f0" font-size="64" font-weight="700" font-family="Inter,Segoe UI,Arial,sans-serif">Cronジョブ設定ガイド</text>
+  <text x="110" y="350" fill="#cbd5e1" font-size="34" font-family="Inter,Segoe UI,Arial,sans-serif">最小構成で始める毎日自動化</text>
+
+  <rect x="110" y="400" width="420" height="8" rx="4" fill="url(#accent)"/>
+  <text x="110" y="455" fill="#67e8f9" font-size="28" font-family="JetBrains Mono,Consolas,monospace">openclaw cron add --name "daily"</text>
+
+  <circle cx="1030" cy="470" r="56" fill="rgba(56,189,248,0.18)" stroke="#67e8f9"/>
+  <text x="1008" y="480" fill="#67e8f9" font-size="34" font-family="Inter,Segoe UI,Arial,sans-serif">⚡</text>
+</svg>

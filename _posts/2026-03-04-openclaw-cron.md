@@ -8,6 +8,7 @@ tags:
   - scheduling
   - devops
 description: "OpenClawのCronジョブを最小構成で設定し、ログ検証を通じて安全に段階拡張する方法を解説します。タイムゾーンや認証切れなど、運用で起きやすい失敗の具体的な回避策も紹介します。"
+cover_image: /assets/img/openclaw-cron-cover.svg
 ---
 
 毎日の定型タスクは、手作業のままだと実行漏れや設定ブレが起きやすくなります。まずは小さく自動化し、安定性を確認してから広げるのが実運用では最短です。
