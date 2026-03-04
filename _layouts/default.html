@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  {% if page.tags %}<meta name="keywords" content="{{ page.tags | join: ', ' }}">{% endif %}
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- Prism.js syntax highlight -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Google AdSense global script -->
+  {% if site.adsense.enabled %}
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsense.client }}"
+       crossorigin="anonymous"></script>
+  {% endif %}
+
+  <style>
+    :root {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-card: #1e293b;
+      --accent: #38bdf8;
+      --accent-hover: #7dd3fc;
+      --text-primary: #e2e8f0;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --code-bg: #0d1117;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: var(--bg-secondary) !important;
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 0;
+    }
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--accent) !important;
+      letter-spacing: -0.025em;
+    }
+    .navbar-brand i { margin-right: 0.4rem; }
+    .nav-link {
+      color: var(--text-muted) !important;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--accent) !important; }
+
+    /* Cards on index */
+    .post-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      transition: border-color 0.2s, transform 0.2s;
+      height: 100%;
+    }
+    .post-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .post-card .card-title a {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .post-card .card-title a:hover { color: var(--accent); }
+
+    /* Tags/badges */
+    .tag-badge {
+      background-color: rgba(56, 189, 248, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      font-size: 0.75rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .tag-badge:hover {
+      background-color: rgba(56, 189, 248, 0.3);
+      color: var(--accent-hover);
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      padding: 2rem 0;
+      margin-top: 4rem;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+    /* Hero on index */
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 0 2.5rem;
+      margin-bottom: 3rem;
+    }
+    .hero h1 { font-size: 2rem; font-weight: 700; }
+    .hero p { color: var(--text-muted); }
+
+    /* AdSense container */
+    .adsense-block { min-height: 90px; }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="{{ '/' | relative_url }}">
+        <i class="bi bi-lightning-charge-fill"></i>OpenClaw Tech Blog
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="{{ '/' | relative_url }}"><i class="bi bi-house me-1"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ '/feed.xml' | relative_url }}"><i class="bi bi-rss me-1"></i>RSS</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main>
+    {{ content }}
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container text-center">
+      <p class="mb-1">
+        <i class="bi bi-lightning-charge-fill text-info me-1"></i>
+        <strong>OpenClaw Tech Blog</strong> &mdash; 毎日1記事、OpenClawの技術情報をお届け
+      </p>
+      <p class="mb-0 text-muted">
+        Generated automatically · Powered by OpenClaw Cron + Local LLM
+      </p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Prism.js -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-yaml.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-json.min.js"></script>
+</body>
+</html>

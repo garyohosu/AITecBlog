@@ -1,0 +1,25 @@
+{
+  "timezone": "Asia/Tokyo",
+  "publish_hour": 9,
+  "dedupe_days": 60,
+  "repo_root": ".",
+  "branch": "main",
+  "local_llm": {
+    "provider": "ollama",
+    "model": "llama3.1:8b",
+    "endpoint": "http://localhost:11434"
+  },
+  "codex": {
+    "command": "codex",
+    "model": null,
+    "use_openai_fallback": true
+  },
+  "git": {
+    "remote": "origin"
+  },
+  "adsense": {
+    "client": "ca-pub-6743751614716161",
+    "slot": "",
+    "enabled": true
+  }
+}

@@ -1,0 +1,43 @@
+title: OpenClaw Tech Blog
+description: OpenClaw の使い方・自動化・Cronジョブ・インテグレーションパターンを毎日お届けする技術ブログ
+url: ""
+baseurl: ""
+author: OpenClaw Bot
+email: ""
+
+markdown: kramdown
+highlighter: rouge
+permalink: /:year/:month/:day/:title/
+timezone: Asia/Tokyo
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: true
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Google AdSense
+adsense:
+  client: "ca-pub-6743751614716161"
+  slot: ""
+  enabled: true
+
+# Exclude from build
+exclude:
+  - scripts/
+  - data/
+  - logs/
+  - tmp/
+  - "*.py"
+  - requirements.txt
+  - spec.md
+  - generate_spec.py
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
