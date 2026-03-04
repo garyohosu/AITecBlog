@@ -12,7 +12,7 @@
   "codex": {
     "command": "codex",
     "model": null,
-    "use_openai_fallback": true
+    "use_ollama_fallback": false
   },
   "git": {
     "remote": "origin"

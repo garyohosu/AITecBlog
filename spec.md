@@ -1,7 +1,7 @@
 # spec.md — OpenClaw Daily Tech Blog Factory (GitHub Pages / Jekyll)
 
 ## 0. Summary
-Build a fully automated pipeline that publishes **one OpenClaw-focused technical blog post per day** to a **GitHub Pages (Jekyll)** site. Scheduling is done via **OpenClaw Cron**. Content generation is split between **Local LLM** (cheap/slow: ideation + rough draft) and **Codex CLI** (quality: final draft + correctness). **Google AdSense must appear on every article** by enforcing placement in the Jekyll layout, not per-article authoring.
+Build a fully automated pipeline that publishes **one OpenClaw-focused technical blog post per day** to a **GitHub Pages (Jekyll)** site. Scheduling is done via **OpenClaw Cron**. Content generation is split between **Local LLM** (cheap/slow: ideation + rough draft) and **Codex CLI (OAuth/定額運用)** (quality: final draft + correctness). **Google AdSense must appear on every article** by enforcing placement in the Jekyll layout, not per-article authoring.
 
 googleアドセンスを各ページに入れておくこと
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6743751614716161"

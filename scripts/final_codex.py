@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
-"""Finalize draft into a publish-ready Jekyll post using Codex CLI or OpenAI API."""
+"""Finalize draft into a publish-ready Jekyll post using Codex CLI (flat-rate flow)."""
 from __future__ import annotations
 
 import argparse
 import json
 import logging
-import os
 import shutil
 import subprocess
-import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -53,64 +51,33 @@ def load_config() -> dict:
     return json.loads((ROOT / "data/config.json").read_text())
 
 
-def finalize_with_openai(topic: str, date: str, draft: str, config: dict) -> str:
-    """Call OpenAI chat completions API."""
-    try:
-        from openai import OpenAI
-    except ImportError:
-        raise RuntimeError("openai package not installed. Run: pip install openai")
-
-    api_key = os.environ.get("OPENAI_API_KEY")
-    if not api_key:
-        raise RuntimeError("OPENAI_API_KEY environment variable not set")
-
-    client = OpenAI(api_key=api_key)
-    codex_cfg = config.get("codex", {})
-    model = codex_cfg.get("model") or "gpt-4o"
-
-    prompt = FINALIZE_TEMPLATE.format(topic=topic, date=date, draft=draft)
-    log.info("Calling OpenAI API (model=%s) ...", model)
-
-    response = client.chat.completions.create(
-        model=model,
-        messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": prompt},
-        ],
-        temperature=0.7,
-        max_tokens=4096,
-    )
-    return response.choices[0].message.content.strip()
-
-
 def finalize_with_codex_cli(topic: str, date: str, draft: str, config: dict) -> str:
-    """Call the `codex` CLI binary."""
+    """Call the `codex exec` CLI flow (OAuth flat-rate usage)."""
     codex_cmd = config.get("codex", {}).get("command", "codex")
     if not shutil.which(codex_cmd):
         raise RuntimeError(f"Command '{codex_cmd}' not found in PATH")
 
-    prompt = FINALIZE_TEMPLATE.format(topic=topic, date=date, draft=draft)
+    prompt = (
+        f"{SYSTEM_PROMPT}\n\n"
+        + FINALIZE_TEMPLATE.format(topic=topic, date=date, draft=draft)
+    )
 
-    with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False,
-                                     encoding="utf-8") as f:
-        f.write(prompt)
-        prompt_file = f.name
-
-    try:
-        log.info("Calling codex CLI (%s) ...", codex_cmd)
-        result = subprocess.run(
-            [codex_cmd, "--quiet", "--prompt-file", prompt_file],
-            capture_output=True,
-            text=True,
-            timeout=300,
+    log.info("Calling codex CLI (%s exec) ...", codex_cmd)
+    result = subprocess.run(
+        [codex_cmd, "exec", prompt],
+        capture_output=True,
+        text=True,
+        timeout=600,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(
+            f"codex CLI failed (exit {result.returncode}):\n{result.stderr}"
         )
-        if result.returncode != 0:
-            raise RuntimeError(
-                f"codex CLI failed (exit {result.returncode}):\n{result.stderr}"
-            )
-        return result.stdout.strip()
-    finally:
-        Path(prompt_file).unlink(missing_ok=True)
+
+    output = result.stdout.strip()
+    if not output:
+        raise RuntimeError("codex CLI returned empty output")
+    return output
 
 
 def finalize_with_ollama_fallback(topic: str, date: str, draft: str, config: dict) -> str:
@@ -130,35 +97,28 @@ def finalize_with_ollama_fallback(topic: str, date: str, draft: str, config: dic
 
 
 def finalize(topic: str, date: str, draft: str, config: dict) -> str:
-    """Try finalization methods in order of quality."""
+    """Prefer Codex CLI; optionally fallback to Ollama only (no OpenAI API)."""
     errors = []
 
-    # 1. Try Codex CLI
+    # 1. Codex CLI (primary, flat-rate)
     try:
         return finalize_with_codex_cli(topic, date, draft, config)
     except Exception as e:
-        log.warning("Codex CLI unavailable: %s", e)
-        errors.append(str(e))
+        log.warning("Codex CLI failed: %s", e)
+        errors.append(f"codex: {e}")
 
-    # 2. Try OpenAI API
-    if config.get("codex", {}).get("use_openai_fallback", True):
+    # 2. Optional Ollama fallback
+    if config.get("codex", {}).get("use_ollama_fallback", False):
         try:
-            return finalize_with_openai(topic, date, draft, config)
+            return finalize_with_ollama_fallback(topic, date, draft, config)
         except Exception as e:
-            log.warning("OpenAI API unavailable: %s", e)
-            errors.append(str(e))
+            errors.append(f"ollama: {e}")
 
-    # 3. Ollama fallback
-    try:
-        return finalize_with_ollama_fallback(topic, date, draft, config)
-    except Exception as e:
-        errors.append(str(e))
-
-    raise RuntimeError("All finalization methods failed:\n" + "\n".join(errors))
+    raise RuntimeError("Finalization failed:\n" + "\n".join(errors))
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Finalize draft with Codex CLI / OpenAI")
+    parser = argparse.ArgumentParser(description="Finalize draft with Codex CLI")
     parser.add_argument("--topic", required=True, help="Blog post topic")
     parser.add_argument("--draft", required=True, help="Path to rough draft file")
     parser.add_argument("--out", required=True, help="Output path for final markdown")

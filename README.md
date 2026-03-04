@@ -6,7 +6,7 @@ OpenClaw に関する技術記事を **毎日1件自動生成・公開** する 
 
 ```
 Local LLM (Ollama)  →  下書き生成
-Codex CLI / OpenAI  →  記事仕上げ
+Codex CLI（定額/OAuth） →  記事仕上げ
 Git                 →  _posts/ にコミット・プッシュ
 GitHub Pages        →  Jekyll でビルド・公開
 ```
@@ -27,7 +27,7 @@ GitHub Pages        →  Jekyll でビルド・公開
 │   ├── run_daily.py     # メインオーケストレーター
 │   ├── topic.py         # トピック選択（Ollama + 重複防止）
 │   ├── draft_local_llm.py  # 下書き生成（Ollama）
-│   ├── final_codex.py   # 記事仕上げ（Codex CLI / OpenAI / Ollama）
+│   ├── final_codex.py   # 記事仕上げ（Codex CLI、必要ならOllamaフォールバック）
 │   ├── validate_post.py # バリデーション
 │   ├── git_publish.py   # Git コミット・プッシュ
 │   └── slugify.py       # URL スラグ生成
@@ -80,15 +80,20 @@ ollama pull llama3.1:8b
 }
 ```
 
-### 4. OpenAI API キーの設定（任意・品質向上）
+### 4. Codex CLI の認証（必須）
 
-Codex CLI や OpenAI API を使う場合:
+本プロジェクトは OpenAI API キーを使わず、Codex CLI の OAuth セッション（定額運用）を前提にします。
 
 ```bash
-export OPENAI_API_KEY="sk-..."
+codex
+# ログインを完了して終了
 ```
 
-設定しない場合は Ollama のみで動作します。
+必要に応じて事前確認:
+
+```bash
+codex exec "OKだけ返して"
+```
 
 ### 5. GitHub Pages の設定
 
@@ -142,8 +147,6 @@ name: openclaw-blog-daily
 schedule: "0 9 * * *"
 timezone: Asia/Tokyo
 command: python /path/to/AITecBlog/scripts/run_daily.py
-env:
-  OPENAI_API_KEY: "${OPENAI_API_KEY}"
 ```
 
 ### GitHub Actions での自動化（代替）
@@ -167,8 +170,6 @@ jobs:
           python-version: "3.12"
       - run: pip install -r requirements.txt
       - run: python scripts/run_daily.py
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 ```
 
 ## ローカルでの Jekyll プレビュー
