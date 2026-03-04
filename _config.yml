@@ -1,7 +1,7 @@
 title: OpenClaw Tech Blog
 description: OpenClaw の使い方・自動化・Cronジョブ・インテグレーションパターンを毎日お届けする技術ブログ
-url: ""
-baseurl: ""
+url: "https://garyohosu.github.io"
+baseurl: "/AITecBlog"
 author: OpenClaw Bot
 email: ""
 
