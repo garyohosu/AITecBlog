@@ -6,8 +6,8 @@
   "branch": "main",
   "local_llm": {
     "provider": "ollama",
-    "model": "llama3.1:8b",
-    "endpoint": "http://localhost:11434"
+    "model": "phi3:mini",
+    "endpoint": "http://172.25.192.1:11434"
   },
   "codex": {
     "command": "codex",

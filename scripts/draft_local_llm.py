@@ -5,7 +5,9 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import subprocess
 from pathlib import Path
+from urllib.parse import urlparse, urlunparse
 
 import requests
 
@@ -13,11 +15,28 @@ ROOT = Path(__file__).resolve().parent.parent
 log = logging.getLogger(__name__)
 
 
+def _resolve_endpoint(endpoint: str) -> str:
+    """WSL2環境でlocalhostのときWindowsホストIPに自動変換する。"""
+    parsed = urlparse(endpoint)
+    if parsed.hostname not in ("localhost", "127.0.0.1"):
+        return endpoint
+    try:
+        host_ip = subprocess.check_output(
+            "ip route | awk '/default/ {print $3}' | head -n1",
+            shell=True, text=True
+        ).strip()
+        if host_ip:
+            return urlunparse(parsed._replace(netloc=f"{host_ip}:{parsed.port or 11434}"))
+    except Exception:
+        pass
+    return endpoint
+
+
 def load_config() -> dict:
     return json.loads((ROOT / "data/config.json").read_text())
 
 
-def call_ollama(endpoint: str, model: str, prompt: str, timeout: int = 300) -> str:
+def call_ollama(endpoint: str, model: str, prompt: str, timeout: int = 900) -> str:
     resp = requests.post(
         f"{endpoint}/api/generate",
         json={"model": model, "prompt": prompt, "stream": False},
@@ -114,7 +133,7 @@ openclaw cron add --name "daily-sample" --cron "0 9 * * *" --tz "Asia/Tokyo" --s
 
 def generate_draft(topic: str, config: dict) -> str:
     llm = config["local_llm"]
-    endpoint = llm["endpoint"]
+    endpoint = _resolve_endpoint(llm["endpoint"])
     model = llm["model"]
 
     try:
@@ -123,7 +142,7 @@ def generate_draft(topic: str, config: dict) -> str:
         log.debug("Outline:\n%s", outline)
 
         log.info("Generating draft ...")
-        draft = call_ollama(endpoint, model, build_draft_prompt(topic, outline))
+        draft = call_ollama(endpoint, model, build_draft_prompt(topic, outline), timeout=1200)
         log.info("Draft generated (%d chars)", len(draft))
         return draft
     except Exception as e:
