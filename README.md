@@ -2,6 +2,8 @@
 
 OpenClaw に関する技術記事を **毎日1件自動生成・公開** する GitHub Pages (Jekyll) サイト。
 
+公開URL: **https://garyohosu.github.io/AITecBlog/**
+
 ## アーキテクチャ
 
 ```
