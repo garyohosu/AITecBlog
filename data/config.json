@@ -7,7 +7,7 @@
   "local_llm": {
     "provider": "ollama",
     "model": "phi3:mini",
-    "endpoint": "http://172.25.192.1:11434"
+    "endpoint": "http://localhost:11434"
   },
   "codex": {
     "command": "codex",
