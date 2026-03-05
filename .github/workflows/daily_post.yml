@@ -1,0 +1,33 @@
+name: Daily Blog Post
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 00:00 UTC = 09:00 JST
+  workflow_dispatch:      # 手動実行も可能
+
+jobs:
+  generate-post:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Configure git
+        run: |
+          git config user.name "OpenClaw Bot"
+          git config user.email "bot@openclaw.example"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+
+      - name: Generate and publish daily post
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/run_daily.py

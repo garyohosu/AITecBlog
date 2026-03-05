@@ -96,8 +96,33 @@ def finalize_with_ollama_fallback(topic: str, date: str, draft: str, config: dic
     return resp.json()["response"].strip()
 
 
+def finalize_with_claude_api(topic: str, date: str, draft: str, config: dict) -> str:
+    """Fallback: use Claude API (Anthropic) for finalization."""
+    import os
+    import anthropic
+
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        raise RuntimeError("ANTHROPIC_API_KEY environment variable not set")
+
+    client = anthropic.Anthropic(api_key=api_key)
+    prompt = FINALIZE_TEMPLATE.format(topic=topic, date=date, draft=draft)
+
+    log.info("Calling Claude API for finalization ...")
+    message = client.messages.create(
+        model="claude-haiku-4-5-20251001",
+        max_tokens=4096,
+        system=SYSTEM_PROMPT,
+        messages=[{"role": "user", "content": prompt}],
+    )
+    result = message.content[0].text.strip()
+    if not result:
+        raise RuntimeError("Claude API returned empty output")
+    return result
+
+
 def finalize(topic: str, date: str, draft: str, config: dict) -> str:
-    """Prefer Codex CLI; optionally fallback to Ollama only (no OpenAI API)."""
+    """Prefer Codex CLI; fallback to Claude API, then optionally Ollama."""
     errors = []
 
     # 1. Codex CLI (primary, flat-rate)
@@ -107,7 +132,14 @@ def finalize(topic: str, date: str, draft: str, config: dict) -> str:
         log.warning("Codex CLI failed: %s", e)
         errors.append(f"codex: {e}")
 
-    # 2. Optional Ollama fallback
+    # 2. Claude API fallback (uses ANTHROPIC_API_KEY env var)
+    try:
+        return finalize_with_claude_api(topic, date, draft, config)
+    except Exception as e:
+        log.warning("Claude API failed: %s", e)
+        errors.append(f"claude: {e}")
+
+    # 3. Optional Ollama fallback
     if config.get("codex", {}).get("use_ollama_fallback", False):
         try:
             return finalize_with_ollama_fallback(topic, date, draft, config)
