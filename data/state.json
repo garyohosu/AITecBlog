@@ -1,6 +1,17 @@
 {
-  "seen_topics": [],
-  "last_run": null,
-  "last_slug": null,
-  "total_posts": 0
+  "seen_topics": [
+    {
+      "topic": "OpenClaw Cron ジョブの基本設定とスケジューリング入門",
+      "slug": "openclaw-cron",
+      "date": "2026-03-04"
+    },
+    {
+      "topic": "OpenClaw でシェルスクリプトを定期実行する方法",
+      "slug": "openclaw",
+      "date": "2026-03-05"
+    }
+  ],
+  "last_run": "2026-03-04T10:14:31.437215",
+  "last_slug": "openclaw",
+  "total_posts": 2
 }
