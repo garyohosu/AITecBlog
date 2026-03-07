@@ -36,7 +36,7 @@ def load_config() -> dict:
     return json.loads((ROOT / "data/config.json").read_text())
 
 
-def call_ollama(endpoint: str, model: str, prompt: str, timeout: int = 900) -> str:
+def call_ollama(endpoint: str, model: str, prompt: str, timeout: int = 90) -> str:
     resp = requests.post(
         f"{endpoint}/api/generate",
         json={"model": model, "prompt": prompt, "stream": False},
@@ -134,25 +134,39 @@ openclaw cron add --name "daily-sample" --cron "0 9 * * *" --tz "Asia/Tokyo" --s
 def generate_draft(topic: str, config: dict) -> str:
     llm = config["local_llm"]
     endpoint = _resolve_endpoint(llm["endpoint"])
+    fallback_endpoint = _resolve_endpoint(llm.get("fallback_endpoint", endpoint))
     model = llm["model"]
+    outline_timeout = int(llm.get("outline_timeout", 45))
+    draft_timeout = int(llm.get("draft_timeout", 90))
+    retries = int(llm.get("retries", 1))
 
-    try:
-        log.info("Generating outline via %s/%s ...", endpoint, model)
-        outline = call_ollama(endpoint, model, build_outline_prompt(topic))
-        log.debug("Outline:\n%s", outline)
+    endpoints = [endpoint]
+    if fallback_endpoint != endpoint:
+        endpoints.append(fallback_endpoint)
 
-        log.info("Generating draft ...")
-        draft = call_ollama(endpoint, model, build_draft_prompt(topic, outline), timeout=1200)
-        log.info("Draft generated (%d chars)", len(draft))
-        return draft
-    except Exception as e:
-        log.warning("Local LLM unavailable, using deterministic fallback draft: %s", e)
-        # Keep pipeline alive even when Ollama is down
-        outline = _fallback_outline(topic)
-        log.debug("Fallback outline:\n%s", outline)
-        draft = _fallback_draft(topic)
-        log.info("Fallback draft generated (%d chars)", len(draft))
-        return draft
+    last_err = None
+    for ep in endpoints:
+        for attempt in range(retries + 1):
+            try:
+                log.info("Generating outline via %s/%s ...", ep, model)
+                outline = call_ollama(ep, model, build_outline_prompt(topic), timeout=outline_timeout)
+                log.debug("Outline:\n%s", outline)
+
+                log.info("Generating draft ...")
+                draft = call_ollama(ep, model, build_draft_prompt(topic, outline), timeout=draft_timeout)
+                log.info("Draft generated (%d chars)", len(draft))
+                return draft
+            except Exception as e:
+                last_err = e
+                log.warning("Local LLM attempt failed (%s, try %d): %s", ep, attempt + 1, e)
+
+    log.warning("Local LLM unavailable, using deterministic fallback draft: %s", last_err)
+    # Keep pipeline alive even when Ollama is down
+    outline = _fallback_outline(topic)
+    log.debug("Fallback outline:\n%s", outline)
+    draft = _fallback_draft(topic)
+    log.info("Fallback draft generated (%d chars)", len(draft))
+    return draft
 
 
 def main() -> None:

@@ -7,7 +7,11 @@
   "local_llm": {
     "provider": "ollama",
     "model": "phi3:mini",
-    "endpoint": "http://192.168.11.2:11434"
+    "endpoint": "http://192.168.11.2:11434",
+    "fallback_endpoint": "http://172.25.192.1:11434",
+    "outline_timeout": 45,
+    "draft_timeout": 90,
+    "retries": 1
   },
   "codex": {
     "command": "codex",
