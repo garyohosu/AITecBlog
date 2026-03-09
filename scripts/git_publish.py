@@ -15,7 +15,7 @@ log = logging.getLogger(__name__)
 
 
 def load_config() -> dict:
-    return json.loads((ROOT / "data/config.json").read_text())
+    return json.loads((ROOT / "data/config.json").read_text(encoding="utf-8"))
 
 
 def run_git(args: list[str], cwd: Path) -> str:

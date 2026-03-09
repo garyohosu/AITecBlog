@@ -34,7 +34,7 @@ def _resolve_endpoint(endpoint: str) -> str:
 
 
 def load_config() -> dict:
-    return json.loads((ROOT / "data/config.json").read_text())
+    return json.loads((ROOT / "data/config.json").read_text(encoding="utf-8"))
 
 
 def ollama_disabled(config: dict) -> bool:

@@ -52,7 +52,7 @@ No explanations, no markdown fences around the whole output.
 
 
 def load_config() -> dict:
-    return json.loads((ROOT / "data/config.json").read_text())
+    return json.loads((ROOT / "data/config.json").read_text(encoding="utf-8"))
 
 
 def _resolve_codex_command(codex_cmd: str) -> str:

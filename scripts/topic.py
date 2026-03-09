@@ -21,13 +21,13 @@ log = logging.getLogger(__name__)
 
 
 def load_config() -> dict:
-    return json.loads((ROOT / "data/config.json").read_text())
+    return json.loads((ROOT / "data/config.json").read_text(encoding="utf-8"))
 
 
 def load_state() -> dict:
     state_file = ROOT / "data/state.json"
     if state_file.exists():
-        return json.loads(state_file.read_text())
+        return json.loads(state_file.read_text(encoding="utf-8"))
     return {"seen_topics": [], "last_run": None}
 
 

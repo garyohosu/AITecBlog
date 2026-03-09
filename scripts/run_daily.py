@@ -42,13 +42,13 @@ def setup_logging(date_str: str, verbose: bool) -> logging.Logger:
 
 
 def load_config() -> dict:
-    return json.loads((ROOT / "data/config.json").read_text())
+    return json.loads((ROOT / "data/config.json").read_text(encoding="utf-8"))
 
 
 def load_state() -> dict:
     state_file = ROOT / "data/state.json"
     if state_file.exists():
-        return json.loads(state_file.read_text())
+        return json.loads(state_file.read_text(encoding="utf-8"))
     return {"seen_topics": [], "last_run": None, "last_slug": None, "total_posts": 0}
 
 
@@ -149,7 +149,7 @@ def main() -> None:
     date_str = args.date or date.today().isoformat()
     log = setup_logging(date_str, args.verbose)
 
-    log.info("OpenClaw Daily Blog Factory — %s%s",
+    log.info("OpenClaw Daily Blog Factory - %s%s",
              date_str, " [DRY RUN]" if args.dry_run else "")
 
     tmp_dir = ROOT / "tmp"
