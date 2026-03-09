@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import os
 import re
 import sys
 from datetime import datetime, timedelta
@@ -38,6 +39,13 @@ def load_seed_topics() -> list[str]:
     return [m.strip() for m in re.findall(r"^-\s+(.+)$", text, re.MULTILINE) if m.strip()]
 
 
+def ollama_disabled(config: dict) -> bool:
+    env_value = os.environ.get("AITECBLOG_DISABLE_OLLAMA", "")
+    if env_value.lower() in {"1", "true", "yes", "on"}:
+        return True
+    return not config.get("local_llm", {}).get("enabled", True)
+
+
 def call_ollama(endpoint: str, model: str, prompt: str, timeout: int = 120) -> str:
     resp = requests.post(
         f"{endpoint}/api/generate",
@@ -49,6 +57,10 @@ def call_ollama(endpoint: str, model: str, prompt: str, timeout: int = 120) -> s
 
 
 def generate_topics_llm(config: dict) -> list[str]:
+    if ollama_disabled(config):
+        log.info("Skipping Ollama topic generation because AITECBLOG_DISABLE_OLLAMA is enabled")
+        return []
+
     llm = config["local_llm"]
     prompt = (
         "Generate exactly 10 technical blog post topics about OpenClaw.\n"

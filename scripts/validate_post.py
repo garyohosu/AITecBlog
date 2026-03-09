@@ -13,7 +13,7 @@ import yaml
 
 log = logging.getLogger(__name__)
 
-REQUIRED_FRONTMATTER_KEYS = ["title", "date", "tags", "description"]
+REQUIRED_FRONTMATTER_KEYS = ["layout", "title", "date", "tags", "description"]
 
 FORBIDDEN_PATTERNS = [
     r"OPENAI_API_KEY",
@@ -65,6 +65,9 @@ def validate_frontmatter(metadata: dict[str, Any]) -> list[str]:
     # tags must be a list
     if "tags" in metadata and not isinstance(metadata["tags"], list):
         errors.append("Front matter 'tags' must be a YAML list")
+
+    if "layout" in metadata and metadata["layout"] != "post":
+        errors.append("Front matter 'layout' must be 'post'")
 
     # date format check
     if "date" in metadata:

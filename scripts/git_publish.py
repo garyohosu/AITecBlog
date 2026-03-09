@@ -54,7 +54,11 @@ def publish(src_file: Path, slug: str, date: str, config: dict) -> Path:
     remote = config.get("git", {}).get("remote", "origin")
 
     log.info("Running git add ...")
-    run_git(["add", str(dest_path.relative_to(repo_root))], cwd=repo_root)
+    add_paths = [str(dest_path.relative_to(repo_root))]
+    state_path = repo_root / "data" / "state.json"
+    if state_path.exists():
+        add_paths.append(str(state_path.relative_to(repo_root)))
+    run_git(["add"] + add_paths, cwd=repo_root)
 
     commit_msg = f"post: {date} {slug}"
     log.info("Committing: %s", commit_msg)

@@ -158,6 +158,8 @@ def main() -> None:
 
     config = load_config()
     state = load_state()
+    original_state = json.loads(json.dumps(state, ensure_ascii=False))
+    state_saved = False
 
     topic: str = ""
     slug: str = ""
@@ -167,11 +169,12 @@ def main() -> None:
         step_draft(topic, draft_path, config, log)
         step_finalize(topic, date_str, draft_path, final_path, config, log)
         step_validate(final_path, log)
-        dest = step_publish(final_path, slug, date_str, config, args.dry_run, log)
 
-        # Update state on success
         state = update_state(state, topic, slug, date_str)
         save_state(state)
+        state_saved = True
+
+        dest = step_publish(final_path, slug, date_str, config, args.dry_run, log)
 
         log.info("=" * 60)
         log.info("SUCCESS: %s", dest)
@@ -181,6 +184,10 @@ def main() -> None:
         log.error("=" * 60)
         log.error("FAILED on %s", date_str)
         log.error(traceback.format_exc())
+
+        if state_saved:
+            save_state(original_state)
+            log.warning("Restored data/state.json after failed publish")
 
         # Clean up any partial files in _posts/
         partial = ROOT / "_posts" / f"{date_str}-{slug}.md"

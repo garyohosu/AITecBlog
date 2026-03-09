@@ -29,5 +29,6 @@ jobs:
 
       - name: Generate and publish daily post
         env:
+          AITECBLOG_DISABLE_OLLAMA: "1"
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python scripts/run_daily.py

@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import os
 import subprocess
 from pathlib import Path
 from urllib.parse import urlparse, urlunparse
@@ -34,6 +35,13 @@ def _resolve_endpoint(endpoint: str) -> str:
 
 def load_config() -> dict:
     return json.loads((ROOT / "data/config.json").read_text())
+
+
+def ollama_disabled(config: dict) -> bool:
+    env_value = os.environ.get("AITECBLOG_DISABLE_OLLAMA", "")
+    if env_value.lower() in {"1", "true", "yes", "on"}:
+        return True
+    return not config.get("local_llm", {}).get("enabled", True)
 
 
 def call_ollama(endpoint: str, model: str, prompt: str, timeout: int = 90) -> str:
@@ -132,6 +140,10 @@ openclaw cron add --name "daily-sample" --cron "0 9 * * *" --tz "Asia/Tokyo" --s
 
 
 def generate_draft(topic: str, config: dict) -> str:
+    if ollama_disabled(config):
+        log.info("Skipping Ollama draft generation because AITECBLOG_DISABLE_OLLAMA is enabled")
+        return _fallback_draft(topic)
+
     llm = config["local_llm"]
     endpoint = _resolve_endpoint(llm["endpoint"])
     fallback_endpoint = _resolve_endpoint(llm.get("fallback_endpoint", endpoint))

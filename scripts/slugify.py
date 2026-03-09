@@ -15,6 +15,7 @@ def slugify(text: str, min_length: int = 8) -> str:
     is appended to ensure uniqueness and minimum length.
     """
     original = text
+    has_non_ascii = any(ord(ch) > 127 for ch in original)
     # Normalize unicode (NFKD) and drop non-ASCII
     ascii_text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
     slug = ascii_text.lower()
@@ -26,8 +27,16 @@ def slugify(text: str, min_length: int = 8) -> str:
     slug = re.sub(r"-{2,}", "-", slug)
     slug = slug.strip("-")
 
-    # If slug is too short (topic was mostly non-ASCII), append a short hash
-    if len(slug) < min_length:
+    slug_words = [word for word in slug.split("-") if word]
+    generic_words = {"openclaw", "cron"}
+    informative_words = [word for word in slug_words if word not in generic_words]
+
+    needs_hash = len(slug) < min_length
+    if has_non_ascii and (len(informative_words) < 1 or len(slug) < 16):
+        needs_hash = True
+
+    # If slug is too short or lost too much meaning due to ASCII folding, append a short hash.
+    if needs_hash:
         short_hash = hashlib.sha1(original.encode()).hexdigest()[:6]
         slug = (slug + "-" + short_hash).strip("-")
 
