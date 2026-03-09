@@ -9,9 +9,14 @@
       "topic": "OpenClaw でシェルスクリプトを定期実行する方法",
       "slug": "openclaw",
       "date": "2026-03-05"
+    },
+    {
+      "topic": "OpenClaw の Webhook トリガー設定と外部システム連携",
+      "slug": "openclaw-webhook",
+      "date": "2026-03-06"
     }
   ],
-  "last_run": "2026-03-04T10:14:31.437215",
-  "last_slug": "openclaw",
-  "total_posts": 2
+  "last_run": "2026-03-09T10:41:33.796727",
+  "last_slug": "openclaw-webhook",
+  "total_posts": 3
 }
