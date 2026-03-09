@@ -14,9 +14,14 @@
       "topic": "OpenClaw の Webhook トリガー設定と外部システム連携",
       "slug": "openclaw-webhook",
       "date": "2026-03-06"
+    },
+    {
+      "topic": "OpenClaw を使った ETL パイプラインの構築パターン",
+      "slug": "openclaw-etl-59a8d9",
+      "date": "2026-03-07"
     }
   ],
-  "last_run": "2026-03-09T10:41:33.796727",
-  "last_slug": "openclaw-webhook",
-  "total_posts": 3
+  "last_run": "2026-03-09T10:42:00.108543",
+  "last_slug": "openclaw-etl-59a8d9",
+  "total_posts": 4
 }
