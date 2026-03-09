@@ -44,10 +44,10 @@ def ollama_disabled(config: dict) -> bool:
     return not config.get("local_llm", {}).get("enabled", True)
 
 
-def call_ollama(endpoint: str, model: str, prompt: str, timeout: int = 90) -> str:
+def call_ollama(endpoint: str, model: str, prompt: str, timeout: int = 90, keep_alive: str = "45m") -> str:
     resp = requests.post(
         f"{endpoint}/api/generate",
-        json={"model": model, "prompt": prompt, "stream": False},
+        json={"model": model, "prompt": prompt, "stream": False, "keep_alive": keep_alive},
         timeout=timeout,
     )
     resp.raise_for_status()
@@ -151,6 +151,8 @@ def generate_draft(topic: str, config: dict) -> str:
     outline_timeout = int(llm.get("outline_timeout", 45))
     draft_timeout = int(llm.get("draft_timeout", 90))
     retries = int(llm.get("retries", 1))
+    keep_alive = str(llm.get("keep_alive", "45m"))
+    cold_start_timeout = int(llm.get("cold_start_timeout", max(draft_timeout, 180)))
 
     endpoints = [endpoint]
     if fallback_endpoint != endpoint:
@@ -161,11 +163,18 @@ def generate_draft(topic: str, config: dict) -> str:
         for attempt in range(retries + 1):
             try:
                 log.info("Generating outline via %s/%s ...", ep, model)
-                outline = call_ollama(ep, model, build_outline_prompt(topic), timeout=outline_timeout)
+                outline = call_ollama(ep, model, build_outline_prompt(topic), timeout=outline_timeout, keep_alive=keep_alive)
                 log.debug("Outline:\n%s", outline)
 
                 log.info("Generating draft ...")
-                draft = call_ollama(ep, model, build_draft_prompt(topic, outline), timeout=draft_timeout)
+                draft_timeout_eff = cold_start_timeout if attempt == 0 else draft_timeout
+                draft = call_ollama(
+                    ep,
+                    model,
+                    build_draft_prompt(topic, outline),
+                    timeout=draft_timeout_eff,
+                    keep_alive=keep_alive,
+                )
                 log.info("Draft generated (%d chars)", len(draft))
                 return draft
             except Exception as e:
