@@ -89,9 +89,32 @@ def step_finalize(topic: str, date_str: str, draft_path: Path,
     log.info("  Final: %s (%d chars)", final_path, len(final_text))
 
 
+def step_sanitize_secrets(final_path: Path, log: logging.Logger) -> None:
+    log.info("=" * 60)
+    log.info("STEP 4: Sanitizing secret-like patterns")
+    text = final_path.read_text(encoding="utf-8")
+    original = text
+
+    replacements = [
+        (r"OPENAI_API_KEY\s*[:=]\s*\S+", "OPENAI_API_KEY=<REDACTED>"),
+        (r"sk-[A-Za-z0-9]{20,}", "<REDACTED_OPENAI_KEY>"),
+        (r"ghp_[A-Za-z0-9]{36}", "<REDACTED_GITHUB_TOKEN>"),
+    ]
+
+    import re
+    for pattern, repl in replacements:
+        text = re.sub(pattern, repl, text, flags=re.IGNORECASE)
+
+    if text != original:
+        final_path.write_text(text, encoding="utf-8")
+        log.warning("  Secret-like text found and redacted before validation")
+    else:
+        log.info("  No secret-like text found")
+
+
 def step_validate(final_path: Path, log: logging.Logger) -> None:
     log.info("=" * 60)
-    log.info("STEP 4: Validating post")
+    log.info("STEP 5: Validating post")
     from validate_post import validate_post
     errors = validate_post(final_path, check_filename=False)
     if errors:
@@ -104,7 +127,7 @@ def step_validate(final_path: Path, log: logging.Logger) -> None:
 def step_publish(final_path: Path, slug: str, date_str: str,
                  config: dict, dry_run: bool, log: logging.Logger) -> Path:
     log.info("=" * 60)
-    log.info("STEP 5: Publishing post%s", " [DRY RUN]" if dry_run else "")
+    log.info("STEP 6: Publishing post%s", " [DRY RUN]" if dry_run else "")
     from git_publish import publish
     import shutil
 
@@ -168,6 +191,7 @@ def main() -> None:
         topic, slug = step_select_topic(config, log)
         step_draft(topic, draft_path, config, log)
         step_finalize(topic, date_str, draft_path, final_path, config, log)
+        step_sanitize_secrets(final_path, log)
         step_validate(final_path, log)
 
         state = update_state(state, topic, slug, date_str)

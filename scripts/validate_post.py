@@ -16,8 +16,8 @@ log = logging.getLogger(__name__)
 REQUIRED_FRONTMATTER_KEYS = ["layout", "title", "date", "tags", "description"]
 
 FORBIDDEN_PATTERNS = [
-    r"OPENAI_API_KEY",
-    r"sk-[A-Za-z0-9]{20,}",           # OpenAI API key pattern
+    r"OPENAI_API_KEY\s*[:=]\s*(?!<REDACTED>|<YOUR_KEY>|\$\{?OPENAI_API_KEY\}?)\S+",  # API key var with non-placeholder value
+    r"sk-[A-Za-z0-9]{20,}",             # OpenAI API key pattern
     r"ghp_[A-Za-z0-9]{36}",            # GitHub personal access token
     r"-----BEGIN .+? PRIVATE KEY-----",  # Private key
     r"password\s*[:=]\s*\S{8,}",
