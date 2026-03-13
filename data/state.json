@@ -59,9 +59,14 @@
       "topic": "OpenClaw 権限管理と RBAC 設定ガイド",
       "slug": "openclaw-rbac-d5d9f7",
       "date": "2026-03-13"
+    },
+    {
+      "topic": "OpenClaw を Docker / Kubernetes 上にデプロイする手順",
+      "slug": "openclaw-docker-kubernetes",
+      "date": "2026-03-13"
     }
   ],
-  "last_run": "2026-03-13T10:06:39.557386",
-  "last_slug": "openclaw-rbac-d5d9f7",
-  "total_posts": 12
+  "last_run": "2026-03-13T02:41:36.839876",
+  "last_slug": "openclaw-docker-kubernetes",
+  "total_posts": 13
 }
