@@ -64,9 +64,14 @@
       "topic": "OpenClaw を Docker / Kubernetes 上にデプロイする手順",
       "slug": "openclaw-docker-kubernetes",
       "date": "2026-03-13"
+    },
+    {
+      "topic": "OpenClaw ジョブのローカルテストとデバッグ手法",
+      "slug": "openclaw-343113",
+      "date": "2026-03-14"
     }
   ],
-  "last_run": "2026-03-13T02:41:36.839876",
-  "last_slug": "openclaw-docker-kubernetes",
-  "total_posts": 13
+  "last_run": "2026-03-14T10:06:36.005037",
+  "last_slug": "openclaw-343113",
+  "total_posts": 14
 }
