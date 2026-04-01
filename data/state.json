@@ -159,9 +159,14 @@
       "topic": "OpenClaw と Git Rebase 衝突を避ける運用ルール",
       "slug": "openclaw-git-rebase",
       "date": "2026-04-01"
+    },
+    {
+      "topic": "OpenClaw 自動投稿パイプラインの品質ゲート設計",
+      "slug": "openclaw-9cd82a",
+      "date": "2026-04-01"
     }
   ],
-  "last_run": "2026-04-01T10:05:46.834611",
-  "last_slug": "openclaw-git-rebase",
-  "total_posts": 32
+  "last_run": "2026-04-01T03:28:58.622283",
+  "last_slug": "openclaw-9cd82a",
+  "total_posts": 33
 }
