@@ -149,9 +149,14 @@
       "topic": "OpenClaw のモデル切替戦略（コスト・品質・速度）",
       "slug": "openclaw-c5c8b5",
       "date": "2026-03-31"
+    },
+    {
+      "topic": "OpenClaw のジョブ可観測性を高めるログ設計",
+      "slug": "openclaw-7cdf6d",
+      "date": "2026-04-01"
     }
   ],
-  "last_run": "2026-03-31T10:05:58.225099",
-  "last_slug": "openclaw-c5c8b5",
-  "total_posts": 30
+  "last_run": "2026-04-01T00:08:12.538020",
+  "last_slug": "openclaw-7cdf6d",
+  "total_posts": 31
 }
