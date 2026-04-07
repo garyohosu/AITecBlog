@@ -199,9 +199,14 @@
       "topic": "OpenClaw のサブエージェント設計パターンと実践例",
       "slug": "openclaw-646095",
       "date": "2026-04-07"
+    },
+    {
+      "topic": "OpenClaw を使ったレポート自動生成ワークフロー",
+      "slug": "openclaw-317cc6",
+      "date": "2026-04-07"
     }
   ],
-  "last_run": "2026-04-07T11:11:35.016191",
-  "last_slug": "openclaw-646095",
-  "total_posts": 40
+  "last_run": "2026-04-07T03:16:58.281553",
+  "last_slug": "openclaw-317cc6",
+  "total_posts": 41
 }
