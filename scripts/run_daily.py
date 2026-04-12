@@ -16,6 +16,8 @@ import sys
 import traceback
 from datetime import date, datetime
 from pathlib import Path
+from urllib.request import Request, urlopen
+from urllib.error import URLError, HTTPError
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -160,6 +162,34 @@ def update_state(state: dict, topic: str, slug: str, date_str: str) -> dict:
     return state
 
 
+def verify_public(date_str: str, slug: str, log: logging.Logger) -> None:
+    # AITecBlog (Jekyll) の想定公開URL
+    y, m, d = date_str.split("-")
+    post_url = f"https://garyohosu.github.io/AITecBlog/{y}/{m}/{d}/{slug}/"
+    top_url = "https://garyohosu.github.io/AITecBlog/"
+
+    def _fetch(url: str) -> str:
+        req = Request(url, headers={"User-Agent": "AITecBlog/verify"})
+        with urlopen(req, timeout=20) as r:
+            if r.status != 200:
+                raise RuntimeError(f"公開失敗: HTTP {r.status} @ {url}")
+            return r.read().decode("utf-8", errors="ignore")
+
+    try:
+        body = _fetch(post_url)
+        if slug not in body and date_str not in body:
+            raise RuntimeError(f"日付不整合: 公開ページ本文に {date_str} / {slug} が見つからない @ {post_url}")
+        log.info("公開URL確認OK: %s", post_url)
+        return
+    except (HTTPError, URLError) as e:
+        # トップに反映済みかの代替確認
+        top = _fetch(top_url)
+        if slug in top:
+            log.info("公開確認OK(トップ導線): %s", top_url)
+            return
+        raise RuntimeError(f"公開失敗: {post_url} ({e})") from e
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Daily blog post orchestrator")
     parser.add_argument("--date", default=None,
@@ -174,6 +204,7 @@ def main() -> None:
 
     log.info("OpenClaw Daily Blog Factory - %s%s",
              date_str, " [DRY RUN]" if args.dry_run else "")
+    log.info("基準時刻: JST")
 
     tmp_dir = ROOT / "tmp"
     draft_path = tmp_dir / f"{date_str}-draft.md"
@@ -188,25 +219,46 @@ def main() -> None:
     slug: str = ""
 
     try:
+        if not args.dry_run:
+            from git_publish import run_git
+            log.info("記事生成前 git pull --rebase 実行")
+            run_git(["pull", "--rebase", "origin", config.get("branch", "main")], cwd=ROOT)
+
         topic, slug = step_select_topic(config, log)
         step_draft(topic, draft_path, config, log)
         step_finalize(topic, date_str, draft_path, final_path, config, log)
         step_sanitize_secrets(final_path, log)
         step_validate(final_path, log)
 
+        # 生成ファイル健全性チェック
+        if date_str not in final_path.read_text(encoding="utf-8"):
+            raise RuntimeError(f"日付不整合: 生成記事に {date_str} が含まれない")
+
         state = update_state(state, topic, slug, date_str)
         save_state(state)
         state_saved = True
 
         dest = step_publish(final_path, slug, date_str, config, args.dry_run, log)
+        if not dest.exists():
+            raise RuntimeError(f"生成失敗: 公開対象ファイル未作成 {dest}")
+
+        if not args.dry_run:
+            verify_public(date_str, slug, log)
 
         log.info("=" * 60)
         log.info("SUCCESS: %s", dest)
         log.info("Total posts published: %d", state["total_posts"])
 
-    except Exception:
+    except Exception as e:
         log.error("=" * 60)
         log.error("FAILED on %s", date_str)
+        msg = str(e)
+        if "生成失敗" in msg:
+            log.error("分類: 生成失敗")
+        elif "公開失敗" in msg:
+            log.error("分類: 公開失敗")
+        elif "日付不整合" in msg:
+            log.error("分類: 日付不整合")
         log.error(traceback.format_exc())
 
         if state_saved:
