@@ -224,9 +224,14 @@
       "topic": "OpenClaw でマルチリポジトリ管理を自動化するパターン",
       "slug": "openclaw-007799",
       "date": "2026-04-11"
+    },
+    {
+      "topic": "OpenClaw Agent SDK を使ったカスタムエージェント開発",
+      "slug": "openclaw-agent-sdk",
+      "date": "2026-04-12"
     }
   ],
-  "last_run": "2026-04-11T02:51:10.698765",
-  "last_slug": "openclaw-007799",
-  "total_posts": 45
+  "last_run": "2026-04-12T03:30:59.831322",
+  "last_slug": "openclaw-agent-sdk",
+  "total_posts": 46
 }
