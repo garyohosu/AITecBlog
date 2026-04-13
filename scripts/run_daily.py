@@ -14,6 +14,7 @@ import json
 import logging
 import sys
 import traceback
+import time
 from datetime import date, datetime
 from pathlib import Path
 from urllib.request import Request, urlopen
@@ -163,7 +164,7 @@ def update_state(state: dict, topic: str, slug: str, date_str: str) -> dict:
 
 
 def verify_public(date_str: str, slug: str, log: logging.Logger) -> None:
-    # AITecBlog (Jekyll) の想定公開URL
+    # AITecBlog (Jekyll) の想定公開URL（Pages反映遅延を考慮してリトライ）
     y, m, d = date_str.split("-")
     post_url = f"https://garyohosu.github.io/AITecBlog/{y}/{m}/{d}/{slug}/"
     top_url = "https://garyohosu.github.io/AITecBlog/"
@@ -175,19 +176,29 @@ def verify_public(date_str: str, slug: str, log: logging.Logger) -> None:
                 raise RuntimeError(f"公開失敗: HTTP {r.status} @ {url}")
             return r.read().decode("utf-8", errors="ignore")
 
+    last_err: Exception | None = None
+    for i in range(1, 7):
+        try:
+            body = _fetch(post_url)
+            if slug not in body and date_str not in body:
+                raise RuntimeError(f"日付不整合: 公開ページ本文に {date_str} / {slug} が見つからない @ {post_url}")
+            log.info("公開URL確認OK: %s", post_url)
+            return
+        except Exception as e:
+            last_err = e
+            log.warning("公開確認待機 (%d/6): %s", i, e)
+            time.sleep(10)
+
+    # トップ導線に反映していれば成功扱い
     try:
-        body = _fetch(post_url)
-        if slug not in body and date_str not in body:
-            raise RuntimeError(f"日付不整合: 公開ページ本文に {date_str} / {slug} が見つからない @ {post_url}")
-        log.info("公開URL確認OK: %s", post_url)
-        return
-    except (HTTPError, URLError) as e:
-        # トップに反映済みかの代替確認
         top = _fetch(top_url)
         if slug in top:
             log.info("公開確認OK(トップ導線): %s", top_url)
             return
-        raise RuntimeError(f"公開失敗: {post_url} ({e})") from e
+    except Exception:
+        pass
+
+    raise RuntimeError(f"公開失敗: {post_url} ({last_err})") from last_err
 
 
 def main() -> None:
