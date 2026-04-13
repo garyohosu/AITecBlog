@@ -229,9 +229,14 @@
       "topic": "OpenClaw Agent SDK を使ったカスタムエージェント開発",
       "slug": "openclaw-agent-sdk",
       "date": "2026-04-12"
+    },
+    {
+      "topic": "OpenClaw のメモリ機能：会話コンテキストを跨いだ状態管理",
+      "slug": "openclaw-e55a02",
+      "date": "2026-04-13"
     }
   ],
-  "last_run": "2026-04-12T03:30:59.831322",
-  "last_slug": "openclaw-agent-sdk",
-  "total_posts": 46
+  "last_run": "2026-04-13T10:06:13.708226",
+  "last_slug": "openclaw-e55a02",
+  "total_posts": 47
 }
