@@ -269,9 +269,14 @@
       "topic": "OpenClaw における LLM コスト管理と予算アラート設定",
       "slug": "openclaw-llm-a379e1",
       "date": "2026-04-18"
+    },
+    {
+      "topic": "OpenClaw のタスクキャンセルと Graceful Shutdown 実装",
+      "slug": "openclaw-graceful-shutdown",
+      "date": "2026-04-19"
     }
   ],
-  "last_run": "2026-04-18T03:16:45.099550",
-  "last_slug": "openclaw-llm-a379e1",
-  "total_posts": 54
+  "last_run": "2026-04-19T03:35:45.588323",
+  "last_slug": "openclaw-graceful-shutdown",
+  "total_posts": 55
 }

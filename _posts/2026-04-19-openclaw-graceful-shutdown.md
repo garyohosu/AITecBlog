@@ -1,0 +1,43 @@
+---
+layout: post
+title: "OpenClaw のタスクキャンセルと Graceful Shutdown 実装"
+date: 2026-04-19 09:00:00 +0900
+tags:
+  - openclaw
+  - automation
+  - devops
+description: "OpenClaw のタスクキャンセルと Graceful Shutdown 実装 を実践できるように、設定手順、確認ポイント、よくある失敗を短く整理します。"
+---
+
+結論: OpenClaw のタスクキャンセルと Graceful Shutdown 実装 は、最小構成で始めてログを見ながら段階的に広げるのが最短です。
+
+## Background
+
+毎日の運用タスクは、手作業だと実行漏れや設定ブレが起きやすくなります。まずは小さく自動化して、安定を確認してから拡張するのが安全です。
+
+## Step-by-step
+
+1. 目的と対象範囲を決める
+
+まずは1つの処理だけを自動化対象にします。成功条件（いつ、どこまでできればOKか）を先に定義します。
+
+2. 最小構成で設定する
+
+```bash
+# 例: 毎日9時に実行
+openclaw cron add --name "daily-sample" --cron "0 9 * * *" --tz "Asia/Tokyo" --session isolated --message "ジョブを実行して結果を要約"
+```
+
+3. 実行結果を検証する
+
+ログと出力を確認し、失敗時の再実行手順を決めます。通知文は短く、原因が分かる形に揃えます。
+
+## Common pitfalls
+
+- タイムゾーンがUTCのままで実行時刻がずれる
+- 認証切れでジョブが実行できない
+- 依存サービス（ローカルLLMなど）が停止している
+
+## Summary
+
+OpenClaw のタスクキャンセルと Graceful Shutdown 実装 は、最小構成で開始→ログ検証→段階拡張の順で進めると、失敗を抑えながら運用を安定させられます。
