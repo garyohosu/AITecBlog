@@ -284,9 +284,14 @@
       "topic": "OpenClaw のプラグイン開発入門：独自ツールを追加する方法",
       "slug": "openclaw-1ca21b",
       "date": "2026-04-21"
+    },
+    {
+      "topic": "OpenClaw を使った多言語翻訳ワークフローの設計",
+      "slug": "openclaw-22385a",
+      "date": "2026-04-22"
     }
   ],
-  "last_run": "2026-04-21T03:29:57.088305",
-  "last_slug": "openclaw-1ca21b",
-  "total_posts": 57
+  "last_run": "2026-04-22T03:28:10.901852",
+  "last_slug": "openclaw-22385a",
+  "total_posts": 58
 }
