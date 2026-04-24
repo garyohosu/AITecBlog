@@ -294,9 +294,14 @@
       "topic": "OpenClaw でデータ品質チェックを自動化するレシピ",
       "slug": "openclaw-e937c2",
       "date": "2026-04-23"
+    },
+    {
+      "topic": "OpenClaw の MCP サーバー統合と外部ツール連携",
+      "slug": "openclaw-mcp-beee06",
+      "date": "2026-04-24"
     }
   ],
-  "last_run": "2026-04-23T03:31:29.192853",
-  "last_slug": "openclaw-e937c2",
-  "total_posts": 59
+  "last_run": "2026-04-24T03:34:04.045928",
+  "last_slug": "openclaw-mcp-beee06",
+  "total_posts": 60
 }
