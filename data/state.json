@@ -309,9 +309,14 @@
       "topic": "OpenClaw のジョブ依存チェーンにおけるエラー伝播の制御",
       "slug": "openclaw-1d315f",
       "date": "2026-04-26"
+    },
+    {
+      "topic": "OpenClaw でインシデント対応を半自動化するフロー設計",
+      "slug": "openclaw-3a0670",
+      "date": "2026-04-27"
     }
   ],
-  "last_run": "2026-04-26T03:40:25.406169",
-  "last_slug": "openclaw-1d315f",
-  "total_posts": 62
+  "last_run": "2026-04-27T03:45:40.945444",
+  "last_slug": "openclaw-3a0670",
+  "total_posts": 63
 }
