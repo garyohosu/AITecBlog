@@ -379,9 +379,14 @@
       "topic": "OpenClaw 環境変数と機密情報の安全な管理方法",
       "slug": "openclaw-da403e",
       "date": "2026-05-17"
+    },
+    {
+      "topic": "OpenClaw + Prometheus による監視とアラート設定",
+      "slug": "openclaw-prometheus",
+      "date": "2026-05-18"
     }
   ],
-  "last_run": "2026-05-17T04:04:16.699519",
-  "last_slug": "openclaw-da403e",
-  "total_posts": 76
+  "last_run": "2026-05-18T04:16:57.864446",
+  "last_slug": "openclaw-prometheus",
+  "total_posts": 77
 }
