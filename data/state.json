@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw ジョブのローカルテストとデバッグ手法",
-      "slug": "openclaw-343113",
-      "date": "2026-03-14"
-    },
-    {
       "topic": "OpenClaw と Slack / メール通知を連携する方法",
       "slug": "openclaw-slack-6ced50",
       "date": "2026-03-14"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw のジョブ優先度制御とキューイング設計",
       "slug": "openclaw-5c552a",
       "date": "2026-06-04"
+    },
+    {
+      "topic": "OpenClaw でバッチ処理を段階的に移行する手順",
+      "slug": "openclaw-7b60b0",
+      "date": "2026-06-05"
     }
   ],
-  "last_run": "2026-06-04T04:49:13.830872",
-  "last_slug": "openclaw-5c552a",
-  "total_posts": 103
+  "last_run": "2026-06-05T04:24:08.673756",
+  "last_slug": "openclaw-7b60b0",
+  "total_posts": 104
 }
