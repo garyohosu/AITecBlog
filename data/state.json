@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw と GitHub Actions を組み合わせた CI/CD",
-      "slug": "openclaw-github-actions-cicd",
-      "date": "2026-03-19"
-    },
-    {
       "topic": "OpenClaw ジョブのタイムゾーン設定と注意点",
       "slug": "openclaw-87124b",
       "date": "2026-03-20"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw と S3 / GCS を使ったデータ転送の自動化",
       "slug": "openclaw-s3-gcs-e64188",
       "date": "2026-06-12"
+    },
+    {
+      "topic": "OpenClaw のアップグレード手順と破壊的変更への対応",
+      "slug": "openclaw-d39e63",
+      "date": "2026-06-13"
     }
   ],
-  "last_run": "2026-06-12T04:46:05.512029",
-  "last_slug": "openclaw-s3-gcs-e64188",
-  "total_posts": 111
+  "last_run": "2026-06-13T04:25:04.848582",
+  "last_slug": "openclaw-d39e63",
+  "total_posts": 112
 }
