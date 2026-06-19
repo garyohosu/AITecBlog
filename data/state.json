@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw 権限管理と RBAC 設定ガイド",
-      "slug": "openclaw-rbac-d5d9f7",
-      "date": "2026-03-13"
-    },
-    {
       "topic": "OpenClaw を Docker / Kubernetes 上にデプロイする手順",
       "slug": "openclaw-docker-kubernetes",
       "date": "2026-03-13"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw と Git Rebase 衝突を避ける運用ルール",
       "slug": "openclaw-git-rebase",
       "date": "2026-06-18"
+    },
+    {
+      "topic": "OpenClaw 自動投稿パイプラインの品質ゲート設計",
+      "slug": "openclaw-9cd82a",
+      "date": "2026-06-19"
     }
   ],
-  "last_run": "2026-06-18T04:45:21.283031",
-  "last_slug": "openclaw-git-rebase",
-  "total_posts": 101
+  "last_run": "2026-06-19T10:06:01.967981",
+  "last_slug": "openclaw-9cd82a",
+  "total_posts": 102
 }
