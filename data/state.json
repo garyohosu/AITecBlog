@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw ジョブのタイムゾーン設定と注意点",
-      "slug": "openclaw-87124b",
-      "date": "2026-03-20"
-    },
-    {
       "topic": "OpenClaw のヘルスチェックとジョブ監視ダッシュボード活用",
       "slug": "openclaw-a9f6c2",
       "date": "2026-03-21"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw と S3 / GCS を使ったデータ転送の自動化",
       "slug": "openclaw-s3-gcs-e64188",
       "date": "2026-06-24"
+    },
+    {
+      "topic": "OpenClaw のアップグレード手順と破壊的変更への対応",
+      "slug": "openclaw-d39e63",
+      "date": "2026-06-24"
     }
   ],
-  "last_run": "2026-06-24T10:02:58.719319",
-  "last_slug": "openclaw-s3-gcs-e64188",
-  "total_posts": 112
+  "last_run": "2026-06-24T04:10:36.494970",
+  "last_slug": "openclaw-d39e63",
+  "total_posts": 113
 }
