@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw の Cron 障害時リカバリ手順",
-      "slug": "openclaw-cron-dbfdeb",
-      "date": "2026-03-27"
-    },
-    {
       "topic": "OpenClaw で Telegram Bot 運用を安定化する設定",
       "slug": "openclaw-telegram-bot",
       "date": "2026-03-29"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw の Canvas 機能を活用したビジュアル出力",
       "slug": "openclaw-canvas-5595c2",
       "date": "2026-06-27"
+    },
+    {
+      "topic": "OpenClaw と LINE / Discord を連携する通知設計",
+      "slug": "openclaw-line-discord",
+      "date": "2026-06-27"
     }
   ],
-  "last_run": "2026-06-27T10:02:49.332379",
-  "last_slug": "openclaw-canvas-5595c2",
-  "total_posts": 117
+  "last_run": "2026-06-27T04:03:53.885376",
+  "last_slug": "openclaw-line-discord",
+  "total_posts": 118
 }
