@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw と Git Rebase 衝突を避ける運用ルール",
-      "slug": "openclaw-git-rebase",
-      "date": "2026-04-01"
-    },
-    {
       "topic": "OpenClaw 自動投稿パイプラインの品質ゲート設計",
       "slug": "openclaw-9cd82a",
       "date": "2026-04-01"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw でニュースレターを自動生成・配信するレシピ",
       "slug": "openclaw-2125d8",
       "date": "2026-06-30"
+    },
+    {
+      "topic": "OpenClaw における LLM コスト管理と予算アラート設定",
+      "slug": "openclaw-llm-a379e1",
+      "date": "2026-07-01"
     }
   ],
-  "last_run": "2026-06-30T04:12:01.062454",
-  "last_slug": "openclaw-2125d8",
-  "total_posts": 121
+  "last_run": "2026-07-01T04:40:18.994851",
+  "last_slug": "openclaw-llm-a379e1",
+  "total_posts": 122
 }
