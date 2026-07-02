@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw 運用でハマる5つの失敗と回避策",
-      "slug": "openclaw-5-522283",
-      "date": "2026-04-02"
-    },
-    {
       "topic": "OpenClaw のジョブ優先度制御とキューイング設計",
       "slug": "openclaw-5c552a",
       "date": "2026-04-02"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw のタスクキャンセルと Graceful Shutdown 実装",
       "slug": "openclaw-graceful-shutdown",
       "date": "2026-07-02"
+    },
+    {
+      "topic": "OpenClaw でブログ記事を自動生成する CI/CD パイプライン",
+      "slug": "openclaw-cicd-76a000",
+      "date": "2026-07-02"
     }
   ],
-  "last_run": "2026-07-02T04:07:33.818437",
-  "last_slug": "openclaw-graceful-shutdown",
-  "total_posts": 123
+  "last_run": "2026-07-02T13:34:22.532283",
+  "last_slug": "openclaw-cicd-76a000",
+  "total_posts": 124
 }
