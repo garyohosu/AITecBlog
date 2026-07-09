@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw のアップグレード手順と破壊的変更への対応",
-      "slug": "openclaw-d39e63",
-      "date": "2026-04-10"
-    },
-    {
       "topic": "OpenClaw でマルチリポジトリ管理を自動化するパターン",
       "slug": "openclaw-007799",
       "date": "2026-04-11"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw で定期レポートを PDF 出力する自動化レシピ",
       "slug": "openclaw-pdf-8b4e01",
       "date": "2026-07-09"
+    },
+    {
+      "topic": "OpenClaw のジョブ並列度チューニング：スループット最大化",
+      "slug": "openclaw-d97f8e",
+      "date": "2026-07-09"
     }
   ],
-  "last_run": "2026-07-09T10:03:01.229371",
-  "last_slug": "openclaw-pdf-8b4e01",
-  "total_posts": 133
+  "last_run": "2026-07-09T03:56:14.631563",
+  "last_slug": "openclaw-d97f8e",
+  "total_posts": 134
 }
