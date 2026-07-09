@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw と S3 / GCS を使ったデータ転送の自動化",
-      "slug": "openclaw-s3-gcs-e64188",
-      "date": "2026-04-09"
-    },
-    {
       "topic": "OpenClaw のアップグレード手順と破壊的変更への対応",
       "slug": "openclaw-d39e63",
       "date": "2026-04-10"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw と BigQuery を使ったデータパイプライン構築",
       "slug": "openclaw-bigquery",
       "date": "2026-07-08"
+    },
+    {
+      "topic": "OpenClaw で定期レポートを PDF 出力する自動化レシピ",
+      "slug": "openclaw-pdf-8b4e01",
+      "date": "2026-07-09"
     }
   ],
-  "last_run": "2026-07-08T03:28:37.896653",
-  "last_slug": "openclaw-bigquery",
-  "total_posts": 132
+  "last_run": "2026-07-09T10:03:01.229371",
+  "last_slug": "openclaw-pdf-8b4e01",
+  "total_posts": 133
 }
