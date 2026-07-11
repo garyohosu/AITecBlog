@@ -44,11 +44,18 @@ def ollama_disabled(config: dict) -> bool:
     return not config.get("local_llm", {}).get("enabled", True)
 
 
-def call_ollama(endpoint: str, model: str, prompt: str, timeout: int = 90, keep_alive: str = "45m") -> str:
+def call_ollama(
+    endpoint: str,
+    model: str,
+    prompt: str,
+    timeout: int = 90,
+    keep_alive: str = "45m",
+    connect_timeout: int = 3,
+) -> str:
     resp = requests.post(
         f"{endpoint}/api/generate",
         json={"model": model, "prompt": prompt, "stream": False, "keep_alive": keep_alive},
-        timeout=timeout,
+        timeout=(connect_timeout, timeout),
     )
     resp.raise_for_status()
     return resp.json()["response"]
@@ -153,6 +160,7 @@ def generate_draft(topic: str, config: dict) -> str:
     retries = int(llm.get("retries", 1))
     keep_alive = str(llm.get("keep_alive", "45m"))
     cold_start_timeout = int(llm.get("cold_start_timeout", max(draft_timeout, 180)))
+    connect_timeout = int(llm.get("connect_timeout", 3))
 
     endpoints = [endpoint]
     if fallback_endpoint != endpoint:
@@ -163,7 +171,14 @@ def generate_draft(topic: str, config: dict) -> str:
         for attempt in range(retries + 1):
             try:
                 log.info("Generating outline via %s/%s ...", ep, model)
-                outline = call_ollama(ep, model, build_outline_prompt(topic), timeout=outline_timeout, keep_alive=keep_alive)
+                outline = call_ollama(
+                    ep,
+                    model,
+                    build_outline_prompt(topic),
+                    timeout=outline_timeout,
+                    keep_alive=keep_alive,
+                    connect_timeout=connect_timeout,
+                )
                 log.debug("Outline:\n%s", outline)
 
                 log.info("Generating draft ...")
@@ -174,6 +189,7 @@ def generate_draft(topic: str, config: dict) -> str:
                     build_draft_prompt(topic, outline),
                     timeout=draft_timeout_eff,
                     keep_alive=keep_alive,
+                    connect_timeout=connect_timeout,
                 )
                 log.info("Draft generated (%d chars)", len(draft))
                 return draft

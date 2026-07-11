@@ -7,9 +7,11 @@ import json
 import logging
 import os
 import re
+import subprocess
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
+from urllib.parse import urlparse, urlunparse
 
 import requests
 
@@ -46,11 +48,35 @@ def ollama_disabled(config: dict) -> bool:
     return not config.get("local_llm", {}).get("enabled", True)
 
 
-def call_ollama(endpoint: str, model: str, prompt: str, timeout: int = 120) -> str:
+def _resolve_endpoint(endpoint: str) -> str:
+    """WSL2環境でlocalhostのときWindowsホストIPに自動変換する。"""
+    parsed = urlparse(endpoint)
+    if parsed.hostname not in ("localhost", "127.0.0.1"):
+        return endpoint
+    try:
+        host_ip = subprocess.check_output(
+            "ip route | awk '/default/ {print $3}' | head -n1",
+            shell=True,
+            text=True,
+        ).strip()
+        if host_ip:
+            return urlunparse(parsed._replace(netloc=f"{host_ip}:{parsed.port or 11434}"))
+    except Exception:
+        pass
+    return endpoint
+
+
+def call_ollama(
+    endpoint: str,
+    model: str,
+    prompt: str,
+    timeout: int = 20,
+    connect_timeout: int = 5,
+) -> str:
     resp = requests.post(
         f"{endpoint}/api/generate",
         json={"model": model, "prompt": prompt, "stream": False},
-        timeout=timeout,
+        timeout=(connect_timeout, timeout),
     )
     resp.raise_for_status()
     return resp.json()["response"]
@@ -62,6 +88,11 @@ def generate_topics_llm(config: dict) -> list[str]:
         return []
 
     llm = config["local_llm"]
+    endpoint = _resolve_endpoint(llm["endpoint"])
+    fallback_endpoint = _resolve_endpoint(llm.get("fallback_endpoint", endpoint))
+    retries = int(llm.get("retries", 1))
+    topic_timeout = int(llm.get("topic_timeout", 12))
+    connect_timeout = int(llm.get("connect_timeout", 3))
     prompt = (
         "Generate exactly 10 technical blog post topics about OpenClaw.\n"
         "OpenClaw is a workflow automation and cron scheduling platform.\n\n"
@@ -73,13 +104,53 @@ def generate_topics_llm(config: dict) -> list[str]:
         "Example: 1. OpenClaw でシェルスクリプトを定期実行する方法\n"
         "Return ONLY the numbered list, no explanations."
     )
-    try:
-        raw = call_ollama(llm["endpoint"], llm["model"], prompt)
-        topics = re.findall(r"^\d+[.)]\s*(.+)$", raw, re.MULTILINE)
-        return [t.strip() for t in topics if len(t.strip()) > 10]
-    except Exception as e:
-        log.warning("Ollama topic generation failed: %s", e)
-        return []
+
+    endpoints = [endpoint]
+    if fallback_endpoint != endpoint:
+        endpoints.append(fallback_endpoint)
+
+    last_err = None
+    for ep in endpoints:
+        for attempt in range(retries + 1):
+            try:
+                raw = call_ollama(
+                    ep,
+                    llm["model"],
+                    prompt,
+                    timeout=topic_timeout,
+                    connect_timeout=connect_timeout,
+                )
+                topics = re.findall(r"^\d+[.)]\s*(.+)$", raw, re.MULTILINE)
+                cleaned = [t.strip() for t in topics if len(t.strip()) > 10]
+                if cleaned:
+                    log.info("Generated %d topic candidates via %s", len(cleaned), ep)
+                    return cleaned
+            except Exception as e:
+                last_err = e
+                log.warning("Ollama topic generation failed (%s, try %d): %s", ep, attempt + 1, e)
+
+    if last_err is not None:
+        log.warning("All Ollama topic generation attempts failed: %s", last_err)
+    return []
+
+
+def build_seed_variants(seed_topics: list[str]) -> list[str]:
+    """Expand curated seeds into fresh angles so the pipeline survives long streaks."""
+    angles = [
+        "最小構成で始める実践ガイド",
+        "WSL2 / Linux 環境での運用手順",
+        "障害対応チェックリスト付き解説",
+        "監視・通知まで含めた実装パターン",
+        "実例ベースで学ぶベストプラクティス",
+        "チーム運用を前提にした設計ポイント",
+    ]
+    variants: list[str] = []
+    for topic in seed_topics:
+        base = re.sub(r"[：:]\s*.+$", "", topic).strip()
+        variants.append(topic)
+        for angle in angles:
+            variants.append(f"{base} {angle}")
+    return variants
 
 
 def is_duplicate(topic: str, seen_topics: list[dict], dedupe_days: int) -> bool:
@@ -103,9 +174,10 @@ def select_topic(config: dict) -> tuple[str, str]:
     seen = state.get("seen_topics", [])
     dedupe_days = config.get("dedupe_days", 60)
 
+    seed_topics = load_seed_topics()
     candidates: list[str] = []
     candidates.extend(generate_topics_llm(config))
-    candidates.extend(load_seed_topics())
+    candidates.extend(build_seed_variants(seed_topics))
 
     for topic in candidates:
         if not topic or len(topic) < 10:
