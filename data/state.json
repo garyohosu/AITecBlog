@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw と LINE / Discord を連携する通知設計",
-      "slug": "openclaw-line-discord",
-      "date": "2026-04-13"
-    },
-    {
       "topic": "OpenClaw の Canvas 機能を活用したビジュアル出力",
       "slug": "openclaw-canvas-5595c2",
       "date": "2026-04-14"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw Cron ジョブの基本設定とスケジューリング入門",
       "slug": "openclaw-cron-9af2d3",
       "date": "2026-07-12"
+    },
+    {
+      "topic": "OpenClaw Cron ジョブの基本設定とスケジューリング入門 障害対応チェックリスト付き解説",
+      "slug": "openclaw-cron-643166",
+      "date": "2026-07-12"
     }
   ],
-  "last_run": "2026-07-12T10:00:32.945661",
-  "last_slug": "openclaw-cron-9af2d3",
-  "total_posts": 138
+  "last_run": "2026-07-12T03:35:22.376206",
+  "last_slug": "openclaw-cron-643166",
+  "total_posts": 139
 }
