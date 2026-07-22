@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw の MCP サーバー統合と外部ツール連携",
-      "slug": "openclaw-mcp-beee06",
-      "date": "2026-04-24"
-    },
-    {
       "topic": "OpenClaw でソーシャルメディア投稿を自動化するパターン",
       "slug": "openclaw-30307b",
       "date": "2026-04-25"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw でシェルスクリプトを定期実行する方法 チーム運用を前提にした設計ポイント",
       "slug": "openclaw-cd89c6",
       "date": "2026-07-21"
+    },
+    {
+      "topic": "OpenClaw の Webhook トリガー設定と外部システム連携",
+      "slug": "openclaw-webhook",
+      "date": "2026-07-22"
     }
   ],
-  "last_run": "2026-07-21T03:25:08.698429",
-  "last_slug": "openclaw-cd89c6",
-  "total_posts": 149
+  "last_run": "2026-07-22T03:23:36.960139",
+  "last_slug": "openclaw-webhook",
+  "total_posts": 150
 }
