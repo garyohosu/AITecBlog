@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw でソーシャルメディア投稿を自動化するパターン",
-      "slug": "openclaw-30307b",
-      "date": "2026-04-25"
-    },
-    {
       "topic": "OpenClaw のジョブ依存チェーンにおけるエラー伝播の制御",
       "slug": "openclaw-1d315f",
       "date": "2026-04-26"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw の Webhook トリガー設定と外部システム連携",
       "slug": "openclaw-webhook",
       "date": "2026-07-22"
+    },
+    {
+      "topic": "OpenClaw の Webhook トリガー設定と外部システム連携 WSL2 / Linux 環境での運用手順",
+      "slug": "openclaw-webhook-wsl2-linux",
+      "date": "2026-07-23"
     }
   ],
-  "last_run": "2026-07-22T03:23:36.960139",
-  "last_slug": "openclaw-webhook",
-  "total_posts": 150
+  "last_run": "2026-07-23T03:29:59.399266",
+  "last_slug": "openclaw-webhook-wsl2-linux",
+  "total_posts": 151
 }
