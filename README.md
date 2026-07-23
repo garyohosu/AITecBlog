@@ -151,6 +151,9 @@ timezone: Asia/Tokyo
 command: python /path/to/AITecBlog/scripts/run_daily.py
 ```
 
+依存関係の混線を避けるため、cron の実行前に `pip install --upgrade -r requirements.txt`
+で `requests` / `urllib3` / `pyOpenSSL` / `cryptography` を固定範囲へ更新しておく。
+
 ### GitHub Actions での自動化（代替）
 
 `.github/workflows/daily-post.yml` を作成:
