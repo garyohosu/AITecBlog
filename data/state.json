@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw で定期レポートを PDF 出力する自動化レシピ",
-      "slug": "openclaw-pdf-8b4e01",
-      "date": "2026-04-28"
-    },
-    {
       "topic": "OpenClaw のジョブ並列度チューニング：スループット最大化",
       "slug": "openclaw-d97f8e",
       "date": "2026-04-28"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw を使った ETL パイプラインの構築パターン WSL2 / Linux 環境での運用手順",
       "slug": "openclaw-etl-wsl2-linux",
       "date": "2026-07-26"
+    },
+    {
+      "topic": "OpenClaw を使った ETL パイプラインの構築パターン 障害対応チェックリスト付き解説",
+      "slug": "openclaw-etl-54ddb5",
+      "date": "2026-07-27"
     }
   ],
-  "last_run": "2026-07-26T03:36:37.163658",
-  "last_slug": "openclaw-etl-wsl2-linux",
-  "total_posts": 154
+  "last_run": "2026-07-27T03:45:27.504794",
+  "last_slug": "openclaw-etl-54ddb5",
+  "total_posts": 155
 }
