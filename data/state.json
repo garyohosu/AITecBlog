@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw のジョブ並列度チューニング：スループット最大化",
-      "slug": "openclaw-d97f8e",
-      "date": "2026-04-28"
-    },
-    {
       "topic": "OpenClaw でメール返信を自動化するエージェント設計",
       "slug": "openclaw-177121",
       "date": "2026-04-29"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw を使った ETL パイプラインの構築パターン 障害対応チェックリスト付き解説",
       "slug": "openclaw-etl-54ddb5",
       "date": "2026-07-27"
+    },
+    {
+      "topic": "OpenClaw を使った ETL パイプラインの構築パターン 監視・通知まで含めた実装パターン",
+      "slug": "openclaw-etl-c4ef01",
+      "date": "2026-07-28"
     }
   ],
-  "last_run": "2026-07-27T03:45:27.504794",
-  "last_slug": "openclaw-etl-54ddb5",
-  "total_posts": 155
+  "last_run": "2026-07-28T03:16:16.794492",
+  "last_slug": "openclaw-etl-c4ef01",
+  "total_posts": 156
 }
