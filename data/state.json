@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw 環境変数と機密情報の安全な管理方法",
-      "slug": "openclaw-da403e",
-      "date": "2026-05-17"
-    },
-    {
       "topic": "OpenClaw + Prometheus による監視とアラート設定",
       "slug": "openclaw-prometheus",
       "date": "2026-05-18"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw ジョブの依存関係定義と DAG パターン",
       "slug": "openclaw-dag-df052f",
       "date": "2026-08-06"
+    },
+    {
+      "topic": "OpenClaw ジョブの依存関係定義と DAG パターン 最小構成で始める実践ガイド",
+      "slug": "openclaw-dag-971a36",
+      "date": "2026-08-07"
     }
   ],
-  "last_run": "2026-08-06T03:18:15.555071",
-  "last_slug": "openclaw-dag-df052f",
-  "total_posts": 165
+  "last_run": "2026-08-07T02:56:50.414930",
+  "last_slug": "openclaw-dag-971a36",
+  "total_posts": 166
 }
