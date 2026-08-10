@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw REST API を使ったカスタムインテグレーション",
-      "slug": "openclaw-rest-api",
-      "date": "2026-05-19"
-    },
-    {
       "topic": "OpenClaw ログ収集と監査ログのベストプラクティス",
       "slug": "openclaw-029a62",
       "date": "2026-05-19"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw ジョブの依存関係定義と DAG パターン 障害対応チェックリスト付き解説",
       "slug": "openclaw-dag-b27721",
       "date": "2026-08-09"
+    },
+    {
+      "topic": "OpenClaw ジョブの依存関係定義と DAG パターン 監視・通知まで含めた実装パターン",
+      "slug": "openclaw-dag-735326",
+      "date": "2026-08-10"
     }
   ],
-  "last_run": "2026-08-09T02:11:12.425980",
-  "last_slug": "openclaw-dag-b27721",
-  "total_posts": 168
+  "last_run": "2026-08-10T02:19:28.142736",
+  "last_slug": "openclaw-dag-735326",
+  "total_posts": 169
 }
