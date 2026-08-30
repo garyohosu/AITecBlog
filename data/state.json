@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw のモデル切替戦略（コスト・品質・速度）",
-      "slug": "openclaw-c5c8b5",
-      "date": "2026-06-17"
-    },
-    {
       "topic": "OpenClaw のジョブ可観測性を高めるログ設計",
       "slug": "openclaw-7cdf6d",
       "date": "2026-06-18"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw ログ収集と監査ログのベストプラクティス",
       "slug": "openclaw-029a62",
       "date": "2026-08-29"
+    },
+    {
+      "topic": "OpenClaw ログ収集と監査ログのベストプラクティス 最小構成で始める実践ガイド",
+      "slug": "openclaw-7313e6",
+      "date": "2026-08-30"
     }
   ],
-  "last_run": "2026-08-29T06:45:28.506673",
-  "last_slug": "openclaw-029a62",
-  "total_posts": 188
+  "last_run": "2026-08-30T04:58:21.921624",
+  "last_slug": "openclaw-7313e6",
+  "total_posts": 189
 }
