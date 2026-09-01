@@ -5,6 +5,7 @@
   "repo_root": ".",
   "branch": "main",
   "local_llm": {
+    "enabled": false,
     "provider": "ollama",
     "model": "phi3:mini",
     "endpoint": "http://192.168.11.2:11434",
