@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw でバッチ処理を段階的に移行する手順",
-      "slug": "openclaw-7b60b0",
-      "date": "2026-06-20"
-    },
-    {
       "topic": "OpenClaw と PostgreSQL を連携したデータ処理パイプライン",
       "slug": "openclaw-postgresql",
       "date": "2026-06-21"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw 権限管理と RBAC 設定ガイド",
       "slug": "openclaw-rbac-d5d9f7",
       "date": "2026-09-04"
+    },
+    {
+      "topic": "OpenClaw 権限管理と RBAC 設定ガイド 最小構成で始める実践ガイド",
+      "slug": "openclaw-rbac-c02e9e",
+      "date": "2026-09-05"
     }
   ],
-  "last_run": "2026-09-04T04:04:45.983115",
-  "last_slug": "openclaw-rbac-d5d9f7",
-  "total_posts": 194
+  "last_run": "2026-09-05T04:00:58.346137",
+  "last_slug": "openclaw-rbac-c02e9e",
+  "total_posts": 195
 }
