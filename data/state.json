@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw のサブエージェント設計パターンと実践例",
-      "slug": "openclaw-646095",
-      "date": "2026-06-22"
-    },
-    {
       "topic": "OpenClaw を使ったレポート自動生成ワークフロー",
       "slug": "openclaw-317cc6",
       "date": "2026-06-23"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw 権限管理と RBAC 設定ガイド 監視・通知まで含めた実装パターン",
       "slug": "openclaw-rbac-f5d3a8",
       "date": "2026-09-08"
+    },
+    {
+      "topic": "OpenClaw Cron ジョブの基本設定とスケジューリング入門 最小構成で始める実践ガイド",
+      "slug": "openclaw-cron-348e9b",
+      "date": "2026-09-09"
     }
   ],
-  "last_run": "2026-09-08T04:09:20.167261",
-  "last_slug": "openclaw-rbac-f5d3a8",
-  "total_posts": 198
+  "last_run": "2026-09-09T04:15:55.438815",
+  "last_slug": "openclaw-cron-348e9b",
+  "total_posts": 199
 }
