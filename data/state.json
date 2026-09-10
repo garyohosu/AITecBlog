@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw を使ったレポート自動生成ワークフロー",
-      "slug": "openclaw-317cc6",
-      "date": "2026-06-23"
-    },
-    {
       "topic": "OpenClaw ジョブの冪等性設計：安全なリトライのために",
       "slug": "openclaw-1c0d59",
       "date": "2026-06-23"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw Cron ジョブの基本設定とスケジューリング入門 最小構成で始める実践ガイド",
       "slug": "openclaw-cron-348e9b",
       "date": "2026-09-09"
+    },
+    {
+      "topic": "OpenClaw Cron ジョブの基本設定とスケジューリング入門",
+      "slug": "openclaw-cron-9af2d3",
+      "date": "2026-09-10"
     }
   ],
-  "last_run": "2026-09-09T04:15:55.438815",
-  "last_slug": "openclaw-cron-348e9b",
-  "total_posts": 199
+  "last_run": "2026-09-10T04:12:55.145490",
+  "last_slug": "openclaw-cron-9af2d3",
+  "total_posts": 200
 }
