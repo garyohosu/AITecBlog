@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw でマルチリポジトリ管理を自動化するパターン",
-      "slug": "openclaw-007799",
-      "date": "2026-06-25"
-    },
-    {
       "topic": "OpenClaw のメモリ機能：会話コンテキストを跨いだ状態管理",
       "slug": "openclaw-e55a02",
       "date": "2026-06-25"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw Cron ジョブの基本設定とスケジューリング入門 監視・通知まで含めた実装パターン",
       "slug": "openclaw-cron-a09d8d",
       "date": "2026-09-13"
+    },
+    {
+      "topic": "OpenClaw Cron ジョブの基本設定とスケジューリング入門 実例ベースで学ぶベストプラクティス",
+      "slug": "openclaw-cron-20e62e",
+      "date": "2026-09-14"
     }
   ],
-  "last_run": "2026-09-13T04:23:25.606358",
-  "last_slug": "openclaw-cron-a09d8d",
-  "total_posts": 203
+  "last_run": "2026-09-14T04:30:00.647613",
+  "last_slug": "openclaw-cron-20e62e",
+  "total_posts": 204
 }
