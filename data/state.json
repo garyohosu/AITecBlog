@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw Cron ジョブの基本設定とスケジューリング入門 WSL2 / Linux 環境での運用手順",
-      "slug": "openclaw-cron-wsl2-linux",
-      "date": "2026-07-11"
-    },
-    {
       "topic": "OpenClaw Cron ジョブの基本設定とスケジューリング入門",
       "slug": "openclaw-cron-9af2d3",
       "date": "2026-07-12"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw のリトライポリシーとエラーハンドリング設計 実例ベースで学ぶベストプラクティス",
       "slug": "openclaw-2402af",
       "date": "2026-10-06"
+    },
+    {
+      "topic": "OpenClaw のリトライポリシーとエラーハンドリング設計 チーム運用を前提にした設計ポイント",
+      "slug": "openclaw-23bb58",
+      "date": "2026-10-07"
     }
   ],
-  "last_run": "2026-10-06T05:56:24.064434",
-  "last_slug": "openclaw-2402af",
-  "total_posts": 226
+  "last_run": "2026-10-07T05:30:13.336311",
+  "last_slug": "openclaw-23bb58",
+  "total_posts": 227
 }
