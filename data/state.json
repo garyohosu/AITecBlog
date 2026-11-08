@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw ジョブの依存関係定義と DAG パターン 監視・通知まで含めた実装パターン",
-      "slug": "openclaw-dag-735326",
-      "date": "2026-08-10"
-    },
-    {
       "topic": "OpenClaw ジョブの依存関係定義と DAG パターン 実例ベースで学ぶベストプラクティス",
       "slug": "openclaw-dag-bd28e8",
       "date": "2026-08-11"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw 権限管理と RBAC 設定ガイド 最小構成で始める実践ガイド",
       "slug": "openclaw-rbac-c02e9e",
       "date": "2026-11-07"
+    },
+    {
+      "topic": "OpenClaw Cron ジョブの基本設定とスケジューリング入門 最小構成で始める実践ガイド",
+      "slug": "openclaw-cron-348e9b",
+      "date": "2026-11-08"
     }
   ],
-  "last_run": "2026-11-07T05:36:53.941847",
-  "last_slug": "openclaw-rbac-c02e9e",
-  "total_posts": 258
+  "last_run": "2026-11-08T05:38:41.380713",
+  "last_slug": "openclaw-cron-348e9b",
+  "total_posts": 259
 }
