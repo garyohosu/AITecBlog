@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw の並列実行とスロットリング制御 監視・通知まで含めた実装パターン",
-      "slug": "openclaw-000541",
-      "date": "2026-08-24"
-    },
-    {
       "topic": "OpenClaw の並列実行とスロットリング制御 実例ベースで学ぶベストプラクティス",
       "slug": "openclaw-81af3c",
       "date": "2026-08-25"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw でシェルスクリプトを定期実行する方法 チーム運用を前提にした設計ポイント",
       "slug": "openclaw-cd89c6",
       "date": "2026-11-21"
+    },
+    {
+      "topic": "OpenClaw の Webhook トリガー設定と外部システム連携",
+      "slug": "openclaw-webhook",
+      "date": "2026-11-22"
     }
   ],
-  "last_run": "2026-11-21T06:43:45.884170",
-  "last_slug": "openclaw-cd89c6",
-  "total_posts": 272
+  "last_run": "2026-11-22T06:13:19.417664",
+  "last_slug": "openclaw-webhook",
+  "total_posts": 273
 }
