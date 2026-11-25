@@ -1,11 +1,6 @@
 {
   "seen_topics": [
     {
-      "topic": "OpenClaw REST API を使ったカスタムインテグレーション",
-      "slug": "openclaw-rest-api",
-      "date": "2026-08-27"
-    },
-    {
       "topic": "OpenClaw REST API を使ったカスタムインテグレーション WSL2 / Linux 環境での運用手順",
       "slug": "openclaw-rest-api-wsl2-linux",
       "date": "2026-08-28"
@@ -449,9 +444,14 @@
       "topic": "OpenClaw を使った ETL パイプラインの構築パターン",
       "slug": "openclaw-etl-59a8d9",
       "date": "2026-11-24"
+    },
+    {
+      "topic": "OpenClaw を使った ETL パイプラインの構築パターン 最小構成で始める実践ガイド",
+      "slug": "openclaw-etl-fba826",
+      "date": "2026-11-25"
     }
   ],
-  "last_run": "2026-11-24T09:29:43.012159",
-  "last_slug": "openclaw-etl-59a8d9",
-  "total_posts": 275
+  "last_run": "2026-11-25T08:00:04.192369",
+  "last_slug": "openclaw-etl-fba826",
+  "total_posts": 276
 }
